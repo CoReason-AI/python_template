@@ -27,8 +27,13 @@ This is a best-in-class Python package template.
   ```bash
   poetry run pre-commit run --all-files
   ```
+  **Note:** The first time you run the linter, the `hadolint` hook may take a few minutes to download and install.
 
 * **Run tests:**
   ```bash
   poetry run pytest
   ```
+
+## Licensing
+
+This project is dual-licensed. See `LICENSING.md` for more details.

@@ -21,24 +21,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493
 
-      - name: Log in to the Container registry
-        uses: docker/login-action@28fdb31ff34708d19615a74d67103ddc2ea9725c
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@e77e8065d9f7ec6abdd9838668cd7b43924dd64d
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@1583c0f09d26c58c59d25b0eef29792b7ce99d9a
 
-      - name: Build and push
+      - name: Build image
+        id: build
         uses: docker/build-push-action@9e436ba9f2d7bcd1d038c8e55d039d37896ddc5d
         with:
           context: .
-          push: true
+          load: true
           tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -52,3 +46,14 @@ jobs:
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
+
+      - name: Log in to the Container registry
+        if: success()
+        uses: docker/login-action@28fdb31ff34708d19615a74d67103ddc2ea9725c
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push image
+        if: success()
+        run: docker push ghcr.io/${{ github.repository }}:${{ github.sha }}
