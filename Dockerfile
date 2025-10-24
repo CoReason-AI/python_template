@@ -18,6 +18,9 @@ FROM python:3.12-slim AS runtime
 RUN useradd --create-home --shell /bin/bash appuser
 USER appuser
 
+# Add user's local bin to PATH
+ENV PATH="/home/appuser/.local/bin:${PATH}"
+
 # Set the working directory
 WORKDIR /home/appuser/app
 

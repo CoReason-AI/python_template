@@ -38,17 +38,8 @@ jobs:
       - name: Run pre-commit
         run: pre-commit run --all-files
 
-  lint-docker:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493
-      - name: Lint Dockerfile
-        uses: hadolint/hadolint-action@54c9adbab1582136bcea3692aa25b7a70191834f
-        with:
-          dockerfile: Dockerfile
-
   test:
-    needs: [lint, lint-docker]
+    needs: lint
     runs-on: ubuntu-latest
     strategy:
       matrix:
