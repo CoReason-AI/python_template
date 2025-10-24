@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493
+      - uses: pre-commit/action@1b06ec171f2f6faa71ed760c4042bd969e4f8b43
+
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@cfd55ca82492758d853442341ad4d8010466803a
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'poetry'
+      - name: Install Poetry
+        run: pipx install poetry
+      - name: Install dependencies
+        run: poetry install
+      - name: Run tests
+        run: poetry run pytest
