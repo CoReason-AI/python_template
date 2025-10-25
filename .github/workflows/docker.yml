@@ -44,7 +44,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Scan for vulnerabilities
-        uses: aquasecurity/trivy-action@678a23d8ab761c56f6f59508935c1054363d11b3
+        uses: aquasecurity/trivy-action@master
         with:
           image-ref: 'ghcr.io/${{ github.repository }}:${{ github.sha }}'
           format: 'table'
