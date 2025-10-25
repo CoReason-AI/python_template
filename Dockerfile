@@ -1,7 +1,7 @@
 # Stage 1: Builder
 FROM python:3.12-slim AS builder
 
-# Install Poetry
+# Install poetry
 RUN pip install --no-cache-dir poetry==1.8.2
 
 # Set the working directory
@@ -9,7 +9,12 @@ WORKDIR /app
 
 # Copy the project files and install dependencies
 COPY pyproject.toml poetry.lock* ./
-RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
+COPY src/ ./src/
+
+# Export dependencies and install them
+RUN poetry export -f requirements.txt --output requirements.txt --without-hashes && \
+    pip install --no-cache-dir --prefix="/install" -r requirements.txt
+
 
 # Stage 2: Runtime
 FROM python:3.12-slim AS runtime
@@ -24,11 +29,11 @@ ENV PATH="/home/appuser/.local/bin:${PATH}"
 # Set the working directory
 WORKDIR /home/appuser/app
 
-# Copy the requirements file from the builder stage
-COPY --from=builder /app/requirements.txt .
+# Copy the installed dependencies from the builder stage
+COPY --from=builder /install /usr/local
 
-# Install dependencies
-RUN pip install --no-cache-dir --user -r requirements.txt
+# Copy the application source code from the builder stage
+COPY --from=builder /app/src/my_python_project ./my_python_project
 
-# Copy the application code
-COPY src/ ./src/
+# Set the PYTHONPATH to include the installed packages
+ENV PYTHONPATH="/home/appuser/app"
