@@ -40,7 +40,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: 'poetry'
       - name: Install Poetry
-        uses: snok/install-poetry@ff8a7d7de27005376176819789742a2280cc35e2
+        run: pipx install poetry
+      - name: Add pipx to PATH
+        run: echo "$(pipx bin)" >> $GITHUB_PATH
       - name: Install dependencies
         run: poetry install
       - name: Run tests
