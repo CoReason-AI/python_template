@@ -40,10 +40,23 @@ jobs:
         uses: actions/setup-python@cfd55ca82492758d853442341ad4d8010466803a
         with:
           python-version: ${{ matrix.python-version }}
-          cache: 'poetry'
+
       - name: Install Poetry
         uses: snok/install-poetry@ff8a7d7de27005376176819789742a2280cc35e2
+
+      - name: Configure Poetry
+        run: poetry config virtualenvs.in-project true
+
+      - name: Cache dependencies
+        uses: actions/cache@88522ab9f3933e4449e32f3259d8133a9d83fff1
+        with:
+          path: .venv
+          key: v1-${{ runner.os }}-python-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            v1-${{ runner.os }}-python-${{ matrix.python-version }}-
+
       - name: Install dependencies
-        run: poetry install
+        run: poetry install --no-interaction --no-root
+
       - name: Run tests
         run: poetry run pytest
