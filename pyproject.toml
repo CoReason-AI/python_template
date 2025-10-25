@@ -1,24 +1,29 @@
-[tool.poetry]
+[project]
 name = "my_python_project"
 version = "0.1.0"
 description = "A best-in-class Python package template."
-authors = ["CoReason, Inc. <gowtham.rao@coreason.ai>"]
+authors = [
+    {name = "CoReason, Inc.", email = "gowtham.rao@coreason.ai"},
+]
 readme = "README.md"
-license = "Prosperity-3.0.0"
-homepage = "https://github.com/[USERNAME]/[REPO_NAME]"
-repository = "https://github.com/[USERNAME]/[REPO_NAME]"
-documentation = "https://github.com/[USERNAME]/[REPO_NAME]"
+license = "LicenseRef-Proprietary"
+license-files = ["LICENSE"]
 keywords = ["template", "poetry", "python"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
-    "License :: Other/Proprietary License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]
+requires-python = "^3.10"
+
+[project.urls]
+Homepage = "https://github.com/[USERNAME]/[REPO_NAME]"
+Repository = "https://github.com/[USERNAME]/[REPO_NAME]"
+Documentation = "https://github.com/[USERNAME]/[REPO_NAME]"
 
 [tool.poetry.dependencies]
 python = "^3.10"
