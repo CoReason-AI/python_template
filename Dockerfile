@@ -11,9 +11,10 @@ WORKDIR /app
 COPY pyproject.toml poetry.lock* ./
 COPY src/ ./src/
 
-# Export dependencies and install them
+# Export dependencies and install them, then install the project
 RUN poetry export -f requirements.txt --output requirements.txt --without-hashes && \
-    pip install --no-cache-dir --prefix="/install" -r requirements.txt
+    pip install --no-cache-dir --prefix="/install" -r requirements.txt && \
+    poetry install --no-dev
 
 
 # Stage 2: Runtime

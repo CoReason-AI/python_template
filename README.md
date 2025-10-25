@@ -6,34 +6,28 @@ This is a best-in-class Python package template.
 
 ### Prerequisites
 
-* [Poetry](https://python-poetry.org/docs/#installation)
+- Python 3.10+
+- Poetry
 
 ### Installation
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/my_python_project.git
-   cd my_python_project
-   ```
-
-2. Install dependencies:
-   ```bash
-   poetry install
-   ```
+1.  Clone the repository:
+    ```sh
+    git clone https://github.com/example/example.git
+    cd my_python_project
+    ```
+2.  Install dependencies:
+    ```sh
+    poetry install
+    ```
 
 ### Usage
 
-* **Run the linter:**
-  ```bash
-  poetry run pre-commit run --all-files
-  ```
-  **Note:** The first time you run the linter, the `hadolint` hook may take a few minutes to download and install.
-
-* **Run tests:**
-  ```bash
-  poetry run pytest
-  ```
-
-## Licensing
-
-This project is dual-licensed. See `LICENSING.md` for more details.
+-   Run the linter:
+    ```sh
+    poetry run pre-commit run --all-files
+    ```
+-   Run the tests:
+    ```sh
+    poetry run pytest
+    ```

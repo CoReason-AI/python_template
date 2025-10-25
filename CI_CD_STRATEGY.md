@@ -1,26 +1,27 @@
 # CI/CD Strategy
 
-This document outlines the CI/CD architecture, Docker strategy, and security measures implemented in this project.
+This document outlines the CI/CD architecture for this project, including the Docker strategy and security measures.
 
 ## CI/CD Architecture
 
-The CI/CD pipeline is designed to provide fast feedback and ensure code quality. It follows a Lint -> Test -> Build -> Scan -> Push workflow.
+The CI/CD pipeline is built using GitHub Actions and is divided into two workflows: `ci.yml` and `docker.yml`.
 
-* **Linting:** The `lint` job runs `pre-commit` to check for code style, formatting, and other quality issues. This ensures that all code merged into the main branches is clean and consistent.
-* **Testing:** The `test` job runs the test suite using `pytest` against a matrix of Python versions (3.10, 3.11, and 3.12). This ensures that the code is compatible with all supported Python versions.
+-   **`ci.yml`**: This workflow is triggered on `push` and `pull_request` events to the `main` and `develop` branches. It consists of two jobs:
+    1.  **`lint`**: This job runs the `pre-commit` suite to ensure all code adheres to the defined quality and style standards.
+    2.  **`test`**: This job runs the `pytest` suite across a matrix of Python versions (3.10, 3.11, and 3.12) to ensure the code is working as expected. It depends on the `lint` job, so it will only run if the linting passes.
+
+-   **`docker.yml`**: This workflow is triggered on `push` events to the `main` and `develop` branches. It builds, scans, and pushes a Docker image to the GitHub Container Registry.
 
 ## Docker Strategy
 
-The Docker strategy is designed to create a secure, efficient, and reproducible Docker image.
+The `Dockerfile` is a multi-stage build to create a lean and secure production image.
 
-* **Multi-Stage Build:** The `Dockerfile` uses a multi-stage build to create a lean production image. The first stage installs the build dependencies and builds the application. The second stage copies the application code and installs the production dependencies.
-* **Non-Root User:** The production image runs as a non-root user to reduce the attack surface.
-* **Caching:** The `docker.yml` workflow uses Docker layer caching to speed up the build process.
+-   **Stage 1 (Builder)**: This stage installs Poetry, exports the project dependencies to a `requirements.txt` file, and installs them. It also installs the application itself.
+-   **Stage 2 (Runtime)**: This stage uses a slim Python base image, creates a non-root user, and copies the installed dependencies and application from the builder stage. This results in a smaller and more secure final image.
 
 ## Security Measures
 
-Security is a top priority in this project. The following security measures are in place:
-
-* **Principle of Least Privilege (PoLP):** The CI/CD workflows are configured with the minimum permissions required to perform their tasks.
-* **SHA Pinning:** All third-party GitHub Actions are pinned to their full commit SHA to prevent supply chain attacks.
-* **Vulnerability Scanning:** The `docker.yml` workflow uses Trivy to scan the Docker image for vulnerabilities. The build will fail if any critical or high-severity vulnerabilities are found.
+-   **Principle of Least Privilege (PoLP)**: The GitHub Actions workflows are configured with the minimum required permissions.
+-   **SHA Pinning**: All third-party GitHub Actions are pinned to their full commit SHA to prevent supply chain attacks.
+-   **Vulnerability Scanning**: The `docker.yml` workflow includes a step to scan the Docker image for vulnerabilities using Trivy. The workflow will fail if any `CRITICAL` or `HIGH` severity vulnerabilities are found.
+-   **Non-Root User**: The `Dockerfile` creates and runs the application as a non-root user to reduce the attack surface.
