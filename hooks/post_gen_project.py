@@ -8,6 +8,8 @@
 #
 # Source Code: https://github.com/CoReason-AI/python_template
 
+# This script is executed after the project is generated.
+
 import subprocess
 import os
 
