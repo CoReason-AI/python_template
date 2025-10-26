@@ -10,6 +10,7 @@
 
 from loguru import logger
 
+
 def hello_world():
     logger.info("Hello World!")
     return "Hello World!"
