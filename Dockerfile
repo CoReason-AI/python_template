@@ -1,20 +1,18 @@
 # Stage 1: Builder
 FROM python:3.12-slim AS builder
 
-# Install poetry
-RUN pip install --no-cache-dir poetry==1.8.2
+# Install build dependencies
+RUN pip install --no-cache-dir build
 
 # Set the working directory
 WORKDIR /app
 
-# Copy the project files and install dependencies
-COPY pyproject.toml poetry.lock* ./
+# Copy the project files
+COPY pyproject.toml .
 COPY src/ ./src/
 
-# Export dependencies and install them
-RUN mkdir -p /install && \
-    poetry export -f requirements.txt --output requirements.txt --without-hashes && \
-    pip install --no-cache-dir --prefix="/install" -r requirements.txt
+# Build the wheel
+RUN python -m build --wheel --outdir /wheels
 
 
 # Stage 2: Runtime
@@ -30,11 +28,8 @@ ENV PATH="/home/appuser/.local/bin:${PATH}"
 # Set the working directory
 WORKDIR /home/appuser/app
 
-# Copy the installed dependencies from the builder stage
-COPY --from=builder /install /usr/local
+# Copy the wheel from the builder stage
+COPY --from=builder /wheels /wheels
 
-# Copy the application source code from the builder stage
-COPY --from=builder /app/src/my_python_project ./my_python_project
-
-# Set the PYTHONPATH to include the installed packages
-ENV PYTHONPATH="/home/appuser/app"
+# Install the application wheel
+RUN pip install --no-cache-dir /wheels/*.whl
