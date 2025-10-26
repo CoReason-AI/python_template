@@ -2,7 +2,7 @@
 
 [![PyPI Version](https://img.shields.io/pypi/v/my_python_project)](https://pypi.org/project/my_python_project/)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/[USERNAME]/[REPO_NAME]/ci-cd.yml?branch=main)](https://github.com/[USERNAME]/[REPO_NAME]/actions/workflows/ci-cd.yml)
-[![Codecov](https://img.shields.io/codecov/c/github/[USERNAME]/[REPO_NAME])](https://codecov.io/gh/[USERNAME]/[REPO_NAME])
+[![codecov](https://codecov.io/gh/[USERNAME]/[REPO_NAME]/branch/main/graph/badge.svg)](https://codecov.io/gh/[USERNAME]/[REPO_NAME])
 [![License](https://img.shields.io/badge/License-Prosperity%203.0.0-blue.svg)](LICENSE)
 [![Code style: ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Python Versions](https://img.shields.io/pypi/pyversions/my_python_project)](https://pypi.org/project/my_python_project)
