@@ -8,7 +8,7 @@
 # Commercial use beyond a 30-day trial requires a separate license.
 # Contact: gowtham.rao@coreason.ai
 
-from my_python_project import add
+from {{cookiecutter.project_slug}}.main import add
 
 
 def test_add():
