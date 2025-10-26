@@ -15,10 +15,12 @@ print("Project generated successfully!")
 print("Initializing Git repository...")
 
 try:
+    # Initialize git
     subprocess.run(["git", "init", "-b", "main"], check=True)
     subprocess.run(["git", "add", "*"], check=True)
     subprocess.run(["git", "commit", "-m", "Initial commit from cookiecutter"], check=True)
 
+    # Install dependencies
     print("\nInstalling dependencies with Poetry...")
     subprocess.run(["poetry", "install"], check=True)
 
