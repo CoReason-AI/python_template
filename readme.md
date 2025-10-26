@@ -1,0 +1,1 @@
+cookiecutter https://github.com/CoReason-AI/python_template --checkout main

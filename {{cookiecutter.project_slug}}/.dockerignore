@@ -5,5 +5,4 @@ __pycache__/
 .mypy_cache/
 docs/
 .github/
-README.md
 .pre-commit-config.yaml

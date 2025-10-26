@@ -10,6 +10,8 @@ WORKDIR /app
 # Copy the project files
 COPY pyproject.toml .
 COPY src/ ./src/
+COPY README.md .
+COPY LICENSE .
 
 # Build the wheel
 RUN python -m build --wheel --outdir /wheels
