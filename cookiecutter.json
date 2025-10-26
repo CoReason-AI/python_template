@@ -1,0 +1,10 @@
+{
+"project_name": "My New Python Project",
+"project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+"project_short_description": "A new Python project.",
+"github_username": "CoReason-AI",
+"author_name": "Gowtham A Rao",
+"author_email": "gowtham.rao@coreason.ai",
+"license_contributor": "CoReason, Inc.",
+"contact_email": "gowtham.rao@coreason.ai"
+}

@@ -1,8 +1,7 @@
 # The Prosperity Public License 3.0.0
 
-Contributor: CoReason, Inc.
-
-Source Code: https://github.com/example/example
+Contributor: {{ cookiecutter.license_contributor }}
+Source Code: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
 
 ## Purpose
 
