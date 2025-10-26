@@ -7,3 +7,8 @@
 #
 # Commercial use beyond a 30-day trial requires a separate license.
 # Contact: gowtham.rao@coreason.ai
+
+
+def add(a: int, b: int) -> int:
+    """Adds two integers together."""
+    return a + b

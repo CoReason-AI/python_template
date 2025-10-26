@@ -8,6 +8,9 @@
 # Commercial use beyond a 30-day trial requires a separate license.
 # Contact: gowtham.rao@coreason.ai
 
+from my_python_project import add
 
-def test_always_passes():
-    assert True
+
+def test_add():
+    """Tests the add function."""
+    assert add(1, 2) == 3
