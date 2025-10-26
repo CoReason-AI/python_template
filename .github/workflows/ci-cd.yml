@@ -44,27 +44,20 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install Poetry
-        uses: snok/install-poetry@ff8a7d7de27005376176819789742a2280cc35e2
-
-      - name: Configure Poetry
-        run: poetry config virtualenvs.in-project true
-        shell: bash
-
       - name: Cache dependencies
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
         with:
-          path: .venv
-          key: v1-${{ runner.os }}-python-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          path: ~/.cache/pip
+          key: v1-${{ runner.os }}-python-${{ matrix.python-version }}-${{ hashFiles('**/pyproject.toml') }}
           restore-keys: |
             v1-${{ runner.os }}-python-${{ matrix.python-version }}-
 
       - name: Install dependencies
-        run: poetry install --no-interaction --no-root
+        run: pip install -e ".[dev]"
         shell: bash
 
       - name: Run tests
-        run: poetry run pytest
+        run: pytest
         shell: bash
 
       - name: Upload coverage to Codecov
@@ -85,27 +78,20 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install Poetry
-        uses: snok/install-poetry@ff8a7d7de27005376176819789742a2280cc35e2
-
-      - name: Configure Poetry
-        run: poetry config virtualenvs.in-project true
-        shell: bash
-
       - name: Cache dependencies
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
         with:
-          path: .venv
-          key: v1-${{ runner.os }}-python-3.12-${{ hashFiles('**/poetry.lock') }}
+          path: ~/.cache/pip
+          key: v1-${{ runner.os }}-python-3.12-${{ hashFiles('**/pyproject.toml') }}
           restore-keys: |
             v1-${{ runner.os }}-python-3.12-
 
       - name: Install dependencies
-        run: poetry install --no-interaction --no-root
+        run: pip install -e ".[dev]"
         shell: bash
 
       - name: Build documentation
-        run: poetry run mkdocs build --strict
+        run: mkdocs build --strict
         shell: bash
 
   release:
@@ -121,10 +107,11 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install Poetry
-        uses: snok/install-poetry@ff8a7d7de27005376176819789742a2280cc35e2
+      - name: Install dependencies
+        run: pip install build
+
       - name: Build package
-        run: poetry build
+        run: python -m build
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@2f6f737ca5f74c637829c0f5c3acd0e29ea5e8bf
