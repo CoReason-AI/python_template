@@ -1,4 +1,4 @@
-Copyright (c) 2025-2026 CoReason, Inc
+Copyright (c) {{ cookiecutter.copyright_year }} {{ cookiecutter.license_contributor }}. All Rights Reserved
 
 This software is licensed under the Prosperity Public License 3.0.0.
 The issuer of the Prosperity Public License for this software is {{ cookiecutter.license_contributor }}.

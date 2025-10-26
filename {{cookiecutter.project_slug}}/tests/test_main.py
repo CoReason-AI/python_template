@@ -1,4 +1,4 @@
-# Copyright (c) {{ cookiecutter.license_contributor }}
+# Copyright (c) {{ cookiecutter.copyright_year }} {{ cookiecutter.license_contributor }}
 #
 # This software is proprietary and dual-licensed.
 # Licensed under the Prosperity Public License 3.0 (the "License").
