@@ -76,6 +76,7 @@ You are strictly forbidden from copying, reproducing, imitating, or drawing from
   * **Complex Tests:** Verify multi-step workflows, state mutations, and heavy computation.
   * **Edge Cases:** Explicitly test boundary values, empty inputs, null states, and error handling.
   * **Exclusions:** Use # pragma: no cover sparingly and **only** for defensive code that is unreachable in standard execution.
+  * **No Throwaway Scripts:** Never create temporary test files (e.g., temp.py). Always add proper tests to the tests/ directory.
 * **External Services & APIs:**
   * **Scenario A (Default):** Use mocks (unittest.mock, pytest-mock, or respx) for ALL external calls.
   * **Scenario B (Credentials Provided):** If the user provides API keys or connection strings:
@@ -85,6 +86,21 @@ You are strictly forbidden from copying, reproducing, imitating, or drawing from
 * **Safety:** Never hardcode credentials in tests. Use environment variables.
 
 ## **4. Architecture & Security**
+
+### **Configuration Standards (Environment Variables)**
+
+Adhere to 12-Factor App principles. Use these standard variable names:
+
+* **Core:**
+  * APP_ENV: development, testing, production.
+  * DEBUG: true or false.
+  * SECRET_KEY: For cryptographic signing/sessions.
+* **Logging:**
+  * LOG_LEVEL: DEBUG, INFO, WARNING, ERROR (Configure loguru with this).
+* **Infrastructure (if applicable):**
+  * DOCKER_HOST: If interacting with the Docker engine.
+  * SSH_PRIVATE_KEY / SSH_USER: If managing remote connections.
+  * AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY: For AWS services.
 
 ### **CI/CD Context**
 
@@ -108,3 +124,22 @@ You are strictly forbidden from copying, reproducing, imitating, or drawing from
 * Documentation is built with **MkDocs Material**.
 * Update docs/index.md or add new markdown files in docs/ when adding features.
 * Ensure all public functions have docstrings (Google or NumPy style).
+
+## **6. Workflow & Debugging Protocol**
+
+If you encounter an error (e.g., test failure, linting error), follow this STRICT sequence:
+
+1. **Read the Logs:** Do not guess. Read the complete error message.
+2. **Isolate:** If multiple tests fail, focus on the simplest failure first.
+3. **Reproduction:** If the error is obscure, create a minimal reproduction case within the test suite (not a temp file).
+4. **Fix:** Apply the fix.
+5. **Verify:** Run the specific test case again.
+
+## **7. Human-in-the-Loop Triggers**
+
+STOP and ASK the user before:
+
+* Modifying database migrations or schema files.
+* Deleting any file outside of src/ or tests/.
+* Adding a dependency that requires OS-level libraries (e.g., libpq-dev).
+* Committing any secrets or API keys (even for testing).
