@@ -8,9 +8,15 @@
 #
 # Source Code: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
 
+import os
+import sys
+
 from loguru import logger
 
+logger.remove()
+logger.add(sys.stderr, level=os.getenv("LOG_LEVEL", "INFO"))
 
-def hello_world():
+
+def hello_world() -> str:
     logger.info("Hello World!")
     return "Hello World!"
