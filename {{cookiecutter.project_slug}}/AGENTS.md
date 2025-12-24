@@ -5,7 +5,7 @@
 ## **1\. Project Overview**
 
 * **Type:** Python Application / Library
-* **Language:** Python 3.12+ (Strict dependency)
+* **Language:** Python 3.12, 3.13, 3.14 (Latest 3 versions)
 * **Package Manager:** Poetry
 * **License:** Prosperity Public License 3.0 (Proprietary/Dual-licensed)
 * **Project Structure:** src layout (source code resides in src/{{ cookiecutter.project_slug }})
@@ -35,6 +35,7 @@ This project uses **Ruff** for Python linting/formatting, **Mypy** for typing, a
   * Avoid Any wherever possible.
 * **Logging:** Use loguru instead of the standard logging module.
   * *Good:* from loguru import logger \-\> logger.info("...")
+* **Licensing:** Every `.py` file must start with the standard license header.
 
 ### **File Structure**
 
