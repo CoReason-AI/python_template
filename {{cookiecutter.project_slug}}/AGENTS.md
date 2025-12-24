@@ -37,6 +37,11 @@ This project uses **Ruff** for Python linting/formatting, **Mypy** for typing, a
   * *Good:* from loguru import logger \-\> logger.info("...")
 * **Licensing:** Every `.py` file must start with the standard license header.
 
+### **Legal & Intellectual Property**
+
+**Strict Prohibition on External Code:**
+You are strictly forbidden from copying, reproducing, imitating, or drawing from any external codebases, especially GPL, AGPL, or other non-permissive licenses or copy left licenses. All generated logic must be original or derived from permissively licensed (e.g., MIT, Apache 2.0) sources and properly attributed.
+
 ### **File Structure**
 
 * **Source Code:** src/{{ cookiecutter.project_slug }}/
