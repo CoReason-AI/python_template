@@ -4,3 +4,5 @@ This software is licensed under the Prosperity Public License 3.0.0.
 The issuer of the Prosperity Public License for this software is {{ cookiecutter.license_contributor }}.
 
 For a commercial version of this software, please contact us at {{ cookiecutter.contact_email }}.
+
+GENESIS COMMIT: Initializing repository {{ cookiecutter.project_slug }} per CoReason Clean Room Protocol PIP-001. This repository is established as an independently created De Novo development environment, commencing on {% now 'utc', '%Y-%m-%d' %}. I, {{ cookiecutter.author_name }} certify that this date is subsequent to my individual Temporal Firewall Date.
