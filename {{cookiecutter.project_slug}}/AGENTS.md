@@ -48,8 +48,8 @@ This project uses **Ruff** for Python linting/formatting, **Mypy** for typing, a
   * Strict static typing is encouraged.
   * Run checks with: poetry run mypy .
   * Avoid Any wherever possible.
-* **Logging:** Use loguru instead of the standard logging module.
-  * *Good:* from loguru import logger -> logger.info("...")
+* **Logging:** Use the project's centralized logging configuration.
+  * *Good:* from src.utils.logger import logger -> logger.info("...")
 * **Licensing:** Every .py file must start with the standard license header.
 
 ### **Legal & Intellectual Property**
@@ -86,6 +86,27 @@ You are strictly forbidden from copying, reproducing, imitating, or drawing from
 * **Safety:** Never hardcode credentials in tests. Use environment variables.
 
 ## **4. Architecture & Security**
+
+### **Logging & Observability**
+
+This project enforces a centralized logging architecture using the `loguru` library.
+
+*   **Standard:** `loguru` is the exclusive logging library. Do not use the built-in `logging` module or `print` statements.
+*   **Outputs (Sinks):**
+    *   **Console:** `stderr` (Human-readable text).
+    *   **File:** `logs/app.log` (JSON-formatted, rotated every 500 MB or 1 day, retained for 10 days).
+*   **Usage Example:**
+
+    ```python
+    from src.utils.logger import logger
+
+    # Inside an Agent or Module
+    logger.info("Agent started task", task_id="123")
+    try:
+        ...
+    except Exception:
+        logger.exception("Agent failed to execute task")
+    ```
 
 ### **Configuration Standards (Environment Variables)**
 
