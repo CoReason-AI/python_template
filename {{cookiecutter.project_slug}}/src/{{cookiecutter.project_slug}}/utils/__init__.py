@@ -8,9 +8,6 @@
 #
 # Source Code: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
 
-from {{ cookiecutter.project_slug }}.utils.logger import logger
-
-
-def hello_world() -> str:
-    logger.info("Hello World!")
-    return "Hello World!"
+"""
+Utils module.
+"""
