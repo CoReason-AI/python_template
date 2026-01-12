@@ -12,19 +12,25 @@
 
 import subprocess
 import os
+import sys
 
 print("Project generated successfully!")
 print("Initializing Git repository...")
 
+# On Windows, shell=True is often required to find executables like 'poetry' or 'git'
+# if they are implemented as batch scripts or cmd files.
+# On POSIX, shell=True is generally discouraged unless necessary.
+use_shell = sys.platform == 'win32'
+
 try:
     # Initialize git
-    subprocess.run(["git", "init", "-b", "main"], check=True)
-    subprocess.run(["git", "add", "*"], check=True)
-    subprocess.run(["git", "commit", "-m", "Initial commit from cookiecutter"], check=True)
+    subprocess.run(["git", "init", "-b", "main"], check=True, shell=use_shell)
+    subprocess.run(["git", "add", "*"], check=True, shell=use_shell)
+    subprocess.run(["git", "commit", "-m", "Initial commit from cookiecutter"], check=True, shell=use_shell)
 
     # Install dependencies
     print("\nInstalling dependencies with Poetry...")
-    subprocess.run(["poetry", "install"], check=True)
+    subprocess.run(["poetry", "install"], check=True, shell=use_shell)
 
     print("\nSuccessfully initialized git repo and installed dependencies.")
     print("Your new project is ready at:", os.getcwd())
