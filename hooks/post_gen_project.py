@@ -25,7 +25,11 @@ try:
     # Initialize git
     subprocess.run(["git", "init", "-b", "main"], check=True, shell=use_shell)
     subprocess.run(["git", "add", "."], check=True, shell=use_shell)
-    subprocess.run(["git", "commit", "-m", "Initial commit from cookiecutter"], check=True, shell=use_shell)
+    subprocess.run(
+        ["git", "commit", "-m", "Initial commit from cookiecutter"],
+        check=True,
+        shell=use_shell,
+    )
 
     # Install dependencies
     print("\nInstalling dependencies with Poetry...")
