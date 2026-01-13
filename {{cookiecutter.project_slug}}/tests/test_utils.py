@@ -29,6 +29,7 @@ def test_logger_initialization() -> None:
     # logger.info("Test log")
     # assert (log_path / "app.log").exists()
 
+
 def test_logger_exports() -> None:
     """Test that logger is exported."""
     assert logger is not None
