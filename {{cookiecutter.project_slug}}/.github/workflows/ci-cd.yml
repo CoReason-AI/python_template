@@ -48,6 +48,7 @@ jobs:
       - name: Set PYTHON_GIL for Free-Threading
         if: matrix.python-version == '3.14t'
         run: echo "PYTHON_GIL=0" >> $GITHUB_ENV
+        shell: bash
 
       - name: Install dependencies
         run: uv sync --all-extras --dev
@@ -105,6 +106,7 @@ jobs:
 
       - name: Build package
         run: uv build
+        shell: bash
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@2f6f737ca5f74c637829c0f5c3acd0e29ea5e8bf
