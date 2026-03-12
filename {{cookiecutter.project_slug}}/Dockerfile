@@ -16,8 +16,10 @@ COPY LICENSE .
 
 # Install dependencies and build the wheel
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --system --no-dev --frozen && \
-    uv build --wheel --out-dir /wheels
+    uv sync --system --no-dev --frozen
+
+# Ensure project build step is included
+RUN uv build --wheel --out-dir /wheels
 
 
 # Stage 2: Runtime
