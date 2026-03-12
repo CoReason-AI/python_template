@@ -20,20 +20,20 @@
 ## **1. Project Overview**
 
 * **Type:** Python Application / Library
-* **Language:** Python 3.12, 3.13, 3.14 (Latest 3 versions)
-* **Package Manager:** Poetry
+* **Language:** Python 3.14+
+* **Package Manager:** uv
 * **License:** Prosperity Public License 3.0 (Proprietary/Dual-licensed)
 * **Project Structure:** src layout (source code resides in src/{{ cookiecutter.project_slug }})
 
 ## **2. Environment & Commands**
 
-The project is managed via Poetry. Do not use pip directly unless inside a Docker build stage.
+The project is managed via uv. Do not use pip directly unless inside a Docker build stage.
 
-* **Install Dependencies:** poetry install
-* **Run Linter (Pre-commit):** poetry run pre-commit run --all-files
-* **Run Tests:** poetry run pytest
-* **Build Docs:** poetry run mkdocs build --strict
-* **Build Package:** poetry build (or python -m build in CI)
+* **Install Dependencies:** uv sync --all-extras --dev
+* **Run Linter (Pre-commit):** uv run pre-commit run --all-files
+* **Run Tests:** uv run pytest
+* **Build Docs:** uv run mkdocs build --strict
+* **Build Package:** uv build
 
 ## **3. Development Rules**
 
@@ -41,12 +41,12 @@ The project is managed via Poetry. Do not use pip directly unless inside a Docke
 
 This project uses **Ruff** for Python linting/formatting, **Mypy** for typing, and **Hadolint** for Dockerfiles.
 
-* **Formatting:** Do not manually format. Run poetry run ruff format .
-* **Linting:** Fix violations automatically where possible: poetry run ruff check --fix .
+* **Formatting:** Do not manually format. Run uv run ruff format .
+* **Linting:** Fix violations automatically where possible: uv run ruff check --fix .
 * **Docker Linting:** Checked via pre-commit (hadolint).
 * **Typing:**
   * Strict static typing is encouraged.
-  * Run checks with: poetry run mypy .
+  * Run checks with: uv run mypy .
   * Avoid Any wherever possible.
 * **Logging:** Use the project's centralized logging configuration.
   * *Good:* from src.utils.logger import logger -> logger.info("...")
@@ -126,18 +126,18 @@ Adhere to 12-Factor App principles. Use these standard variable names:
 ### **CI/CD Context**
 
 * **CI Environment:** GitHub Actions (Matrix testing on Ubuntu, Windows, MacOS).
-* **Python Versions:** Tests run against Python 3.12, 3.13, and 3.14.
+* **Python Versions:** Tests run against Python 3.14 and 3.14t.
 
 ### **Docker Strategy**
 
 * **Multi-stage Build:** The Dockerfile has a builder stage and a runtime stage.
 * **User:** The app runs as a non-root user (appuser). **DO NOT** change this to root.
-* **Base Image:** Uses python:3.12-slim.
+* **Base Image:** Uses python:3.14-slim.
 
 ### **Dependencies**
 
-* **Management:** Always add dependencies via poetry add <package>.
-* **Lock File:** poetry.lock must be committed.
+* **Management:** Always add dependencies via uv add <package>.
+* **Lock File:** uv.lock must be committed (for the generated project).
 * **Vulnerability Scanning:** CI uses Trivy. Ensure no Critical/High vulnerabilities are introduced.
 
 ## **5. Documentation**

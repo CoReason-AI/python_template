@@ -32,12 +32,12 @@ try:
     )
 
     # Install dependencies
-    print("\nInstalling dependencies with Poetry...")
-    subprocess.run(["poetry", "install"], check=True, shell=use_shell)
+    print("\nInstalling dependencies with uv...")
+    subprocess.run(["uv", "sync", "--all-extras", "--dev"], check=True, shell=use_shell)
 
     print("\nSuccessfully initialized git repo and installed dependencies.")
     print("Your new project is ready at:", os.getcwd())
 
 except Exception as e:
     print(f"\nAn error occurred during post-generation setup: {e}")
-    print("Please manually run 'git init' and 'poetry install'.")
+    print("Please manually run 'git init' and 'uv sync --all-extras --dev'.")
