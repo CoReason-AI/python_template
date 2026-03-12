@@ -18,7 +18,7 @@ print("Project generated successfully!")
 print("Initializing Git repository...")
 
 try:
-    # On Windows, shell=True is required to resolve commands like 'poetry' if they are batch files
+    # On Windows, shell=True is required to resolve commands like 'uv' if they are batch files
     # or not strictly executables. On POSIX, shell=False is preferred.
     use_shell = sys.platform == "win32"
 
