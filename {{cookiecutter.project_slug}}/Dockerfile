@@ -1,24 +1,30 @@
 # Stage 1: Builder
-FROM python:3.12-slim AS builder
+FROM python:3.14-slim AS builder
 
-# Install build dependencies
-RUN pip install --no-cache-dir build==1.3.0
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 # Set the working directory
 WORKDIR /app
 
 # Copy the project files
 COPY pyproject.toml .
+COPY uv.lock .
 COPY src/ ./src/
 COPY README.md .
 COPY LICENSE .
 
-# Build the wheel
-RUN python -m build --wheel --outdir /wheels
+# Install dependencies and build the wheel
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --system --no-dev --frozen && \
+    uv build --wheel --out-dir /wheels
 
 
 # Stage 2: Runtime
-FROM python:3.12-slim AS runtime
+FROM python:3.14-slim AS runtime
+
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 # Create a non-root user
 RUN useradd --create-home --shell /bin/bash appuser
@@ -34,4 +40,4 @@ WORKDIR /home/appuser/app
 COPY --from=builder /wheels /wheels
 
 # Install the application wheel
-RUN pip install --no-cache-dir /wheels/*.whl
+RUN uv pip install --system --no-cache /wheels/*.whl
