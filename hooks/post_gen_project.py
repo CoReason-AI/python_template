@@ -24,6 +24,12 @@ try:
 
     # Initialize git
     subprocess.run(["git", "init", "-b", "main"], check=True, shell=use_shell)
+
+    # Install dependencies and generate uv.lock BEFORE committing
+    print("\nInstalling dependencies with uv...")
+    subprocess.run(["uv", "sync", "--all-extras", "--dev"], check=True, shell=use_shell)
+
+    # Stage and commit all files (including the newly generated uv.lock)
     subprocess.run(["git", "add", "."], check=True, shell=use_shell)
     subprocess.run(
         ["git", "commit", "-m", "Initial commit from cookiecutter"],
@@ -31,13 +37,9 @@ try:
         shell=use_shell,
     )
 
-    # Install dependencies
-    print("\nInstalling dependencies with uv...")
-    subprocess.run(["uv", "sync", "--all-extras", "--dev"], check=True, shell=use_shell)
-
-    print("\nSuccessfully initialized git repo and installed dependencies.")
+    print("\nSuccessfully initialized git repo, generated lockfile, and committed.")
     print("Your new project is ready at:", os.getcwd())
 
 except Exception as e:
     print(f"\nAn error occurred during post-generation setup: {e}")
-    print("Please manually run 'git init' and 'uv sync --all-extras --dev'.")
+    print("Please manually run 'uv sync --all-extras --dev' and commit the results.")
