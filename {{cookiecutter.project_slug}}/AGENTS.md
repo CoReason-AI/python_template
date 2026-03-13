@@ -32,7 +32,7 @@ The project is managed via uv. Do not use pip directly unless inside a Docker bu
 * **Install Dependencies:** uv sync --all-extras --dev
 * **Run Linter (Pre-commit):** uv run pre-commit run --all-files
 * **Run Tests:** uv run pytest
-* **Build Docs:** uv run mkdocs build --strict
+* **Build Docs:** uv run zensical build
 * **Build Package:** uv build
 
 ## **3. Development Rules**
@@ -142,7 +142,7 @@ Adhere to 12-Factor App principles. Use these standard variable names:
 
 ## **5. Documentation**
 
-* Documentation is built with **MkDocs Material**.
+* Documentation is built with **Zensical**.
 * Update docs/index.md or add new markdown files in docs/ when adding features.
 * Ensure all public functions have docstrings (Google or NumPy style).
 
