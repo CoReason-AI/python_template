@@ -16,7 +16,7 @@ COPY LICENSE .
 
 # Install dependencies and build the wheel
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --system --no-dev --frozen
+    uv sync --no-dev --frozen
 
 # Ensure project build step is included
 RUN uv build --wheel --out-dir /wheels
@@ -33,13 +33,16 @@ RUN useradd --create-home --shell /bin/bash appuser
 USER appuser
 
 # Add user's local bin to PATH
-ENV PATH="/home/appuser/.local/bin:${PATH}"
+ENV PATH="/home/appuser/app/.venv/bin:/home/appuser/.local/bin:${PATH}"
 
 # Set the working directory
 WORKDIR /home/appuser/app
+COPY --from=builder --chown=appuser:appuser /app/.venv ./.venv
 
 # Copy the wheel from the builder stage
 COPY --from=builder /wheels /wheels
 
 # Install the application wheel
-RUN uv pip install --system --no-cache /wheels/*.whl
+RUN uv pip install --no-cache /wheels/*.whl
+
+CMD ["python", "-m", "{{ cookiecutter.project_slug }}.main"]
