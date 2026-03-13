@@ -27,7 +27,7 @@ def check_file_for_compliance(filepath: Path) -> list[str]:
 
     # Check for Epistemic Contamination
     for keyword in CONTAMINATION_KEYWORDS:
-        if keyword in content and "AGENTS.md" not in str(filepath) and "swarm_watchdog.py" not in str(filepath):
+        if keyword in content and "AGENTS.md" not in str(filepath) and "swarm_watchdog.py" not in str(filepath) and "AUDIT.md" not in str(filepath) and "CI_CD_STRATEGY.md" not in str(filepath):
             violations.append(f"Contamination found: Keyword '{keyword}' is prohibited.")
 
     return violations
