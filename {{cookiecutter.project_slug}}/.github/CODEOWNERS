@@ -4,5 +4,4 @@
 * @{{ cookiecutter.github_username }}
 
 # Architectural constraints
-/scripts/ @{{ cookiecutter.github_username }}
 /.github/workflows/ @{{ cookiecutter.github_username }}
