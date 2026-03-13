@@ -1,5 +1,0 @@
-site_name: {{cookiecutter.project_slug}}
-theme:
-  name: material
-nav:
-  - Home: index.md
