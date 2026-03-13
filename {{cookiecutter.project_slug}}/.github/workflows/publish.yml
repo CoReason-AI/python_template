@@ -21,6 +21,10 @@ jobs:
           enable-cache: true
           python-version: '3.14'
 
+      - name: Build Docs
+        run: uv run zensical build
+        shell: bash
+
       - name: Build package
         run: uv build
         shell: bash
