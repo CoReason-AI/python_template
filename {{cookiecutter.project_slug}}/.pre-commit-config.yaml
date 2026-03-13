@@ -17,7 +17,24 @@ repos:
     rev: v1.18.2
     hooks:
       - id: mypy
+        additional_dependencies: ["pydantic>=2.0"]
   - repo: https://github.com/AleksaC/hadolint-py
     rev: v2.14.0
     hooks:
       - id: hadolint
+  - repo: https://github.com/zricethezav/gitleaks
+    rev: v8.24.0
+    hooks:
+      - id: gitleaks
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.1
+    hooks:
+      - id: codespell
+  - repo: local
+    hooks:
+      - id: deptry
+        name: deptry
+        entry: uv run deptry src/
+        language: system
+        pass_filenames: false
+        always_run: true
