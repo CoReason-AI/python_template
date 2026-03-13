@@ -171,3 +171,6 @@ STOP and ASK the user before:
 * **Prohibited Terms:** Never use generic CRUD terminology (Create, Read, Update, Delete) in naming variables, functions, classes, or logs. Use terms like `ObservationEvent` and `Transmutation`.
 * **No Kinetic Execution:** Code must not have hidden side effects. All side effects must be isolated, explicit, and gated. Modules must act passively, projecting structure rather than actively driving mutations.
 * **Passive by Design:** Systems must be declarative and observable, responding to external stimuli rather than generating hidden side-channel processes.
+* **Strict Typing:** All generated code must include strict type hints. Do not use 'Any'.
+* **Zero Contamination:** Never incorporate external non-permissive code.
+* **Atomic Execution:** Changes must be small, atomic, and testable.

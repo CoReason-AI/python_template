@@ -1,7 +1,1 @@
-# AI Agent Rules: Passive by Design
-
-1. No Kinetic Execution: The AI must never generate code that directly executes side effects without explicit user permission. All code must be 'Passive by Design'.
-2. Structural Lexicon: Always use the strict structural lexicon defined by the coreason-manifest. Use 'Transmutation' instead of 'Update' or 'Modify', and 'ObservationEvent' instead of 'Read' or 'Get'. Never use CRUD terminology.
-3. Strict Typing: All generated code must include strict type hints. Do not use 'Any'.
-4. Zero Contamination: Never incorporate external non-permissive code.
-5. Atomic Execution: Changes must be small, atomic, and testable.
+See AGENTS.md for AI agent rules.
