@@ -34,6 +34,21 @@ jobs:
         run: uv build
         shell: bash
 
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          path: .
+          format: spdx-json
+          output-file: sbom.spdx.json
+
+      - name: Sign artifacts
+        uses: sigstore/gh-action-sigstore-python@v3.0.0
+        with:
+          inputs: >-
+            dist/*.tar.gz
+            dist/*.whl
+            sbom.spdx.json
+
       - name: Publish package to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         # No 'user' or 'password' fields are needed here.

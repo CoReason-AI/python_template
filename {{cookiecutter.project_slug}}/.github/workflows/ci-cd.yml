@@ -27,11 +27,29 @@ jobs:
         with:
           enable-cache: true
           python-version: '3.14'
+      - name: Install dependencies
+        run: uv sync --all-extras --dev
+        shell: bash
       - name: Run pre-commit
         uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd
 
+  evaluate-architecture:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          python-version: '3.14'
+      - name: Run Architecture Evaluation
+        run: uv run scripts/evaluate_architecture.py
+        shell: bash
+
   test:
-    needs: lint
+    needs: [lint, evaluate-architecture]
+    if: always() && (needs.lint.result == 'success' && (needs.evaluate-architecture.result == 'success' || needs.evaluate-architecture.result == 'skipped'))
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:

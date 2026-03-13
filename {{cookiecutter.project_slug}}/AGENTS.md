@@ -164,3 +164,10 @@ STOP and ASK the user before:
 * Deleting any file outside of src/ or tests/.
 * Adding a dependency that requires OS-level libraries (e.g., libpq-dev).
 * Committing any secrets or API keys (even for testing).
+
+## **8. Passive Ontological Projection Rules**
+
+* **Structural Lexicon:** Use the manifest's structural lexicon exclusively.
+* **Prohibited Terms:** Never use generic CRUD terminology (Create, Read, Update, Delete) in naming variables, functions, classes, or logs. Use terms like `ObservationEvent` and `Transmutation`.
+* **No Kinetic Execution:** Code must not have hidden side effects. All side effects must be isolated, explicit, and gated. Modules must act passively, projecting structure rather than actively driving mutations.
+* **Passive by Design:** Systems must be declarative and observable, responding to external stimuli rather than generating hidden side-channel processes.
