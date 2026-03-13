@@ -141,5 +141,3 @@ cython_debug/
 # Runtime Logs
 logs/
 
-# uv lockfile
-uv.lock
