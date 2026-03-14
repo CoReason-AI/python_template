@@ -4,11 +4,11 @@ This document outlines the CI/CD architecture for this project, including the Do
 
 ## CI/CD Architecture
 
-The CI/CD pipeline is built using GitHub Actions and is divided into two workflows: `ci.yml` and `docker.yml`.
+The CI/CD pipeline is built using GitHub Actions and is divided into two workflows: `ci-cd.yml` and `docker.yml`.
 
--   **`ci.yml`**: This workflow is triggered on `push` and `pull_request` events to the `main` and `develop` branches. It consists of two jobs:
+-   **`ci-cd.yml`**: This workflow is triggered on `push` and `pull_request` events to the `main` and `develop` branches. It consists of two jobs:
     1.  **`lint`**: This job runs the `pre-commit` suite to ensure all code adheres to the defined quality and style standards.
-    2.  **`test`**: This job runs the `pytest` suite across a matrix of Python versions (3.10, 3.11, and 3.12) to ensure the code is working as expected. It depends on the `lint` job, so it will only run if the linting passes.
+    2.  **`test`**: This job runs the `pytest` suite across a matrix of Python versions (Python 3.14 and 3.14t (free-threading)) to ensure the code is working as expected. It depends on the `lint` job, so it will only run if the linting passes.
 
 -   **`docker.yml`**: This workflow is triggered on `push` events to the `main` and `develop` branches. It builds, scans, and pushes a Docker image to the GitHub Container Registry.
 
@@ -16,8 +16,8 @@ The CI/CD pipeline is built using GitHub Actions and is divided into two workflo
 
 The `Dockerfile` is a multi-stage build to create a lean and secure production image.
 
--   **Stage 1 (Builder)**: This stage installs Poetry, exports the project dependencies to a `requirements.txt` file, and installs them. It also installs the application itself.
--   **Stage 2 (Runtime)**: This stage uses a slim Python base image, creates a non-root user, and copies the installed dependencies and application from the builder stage. This results in a smaller and more secure final image.
+-   **Stage 1 (Builder)**: This stage installs `uv`, uses it to sync project dependencies via `uv sync`, and builds the application into a wheel (`uv build`), leveraging BuildKit caching.
+-   **Stage 2 (Runtime)**: This stage uses a slim Python 3.14 base image, creates a non-root user, and installs the wheel using `uv pip` from the builder stage. This results in a smaller and more secure final image.
 
 ## Security Measures
 

@@ -88,12 +88,6 @@ ipython_config.py
 #   from different sources is not a concern, Pipfile.lock also may be ignored.
 #Pipfile.lock
 
-# poetry
-#   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
-#   This is especially true if you want to ensure deterministic builds.
-#   However, in some cases, it may be desirable to ignore them.
-#poetry.lock
-
 # pdm
 #   Similar to Pipfile.lock, it is generally recommended to include pdm.lock in version control.
 #pdm.lock
@@ -127,7 +121,7 @@ venv.bak/
 # Rope project settings
 .ropeproject
 
-# mkdocs documentation
+# zensical documentation
 site/
 
 # mypy
