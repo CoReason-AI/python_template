@@ -9,8 +9,6 @@
 # Source Code: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
 
 from pathlib import Path
-import re
-import pytest
 
 from {{ cookiecutter.project_slug }}.utils.logger import logger
 
