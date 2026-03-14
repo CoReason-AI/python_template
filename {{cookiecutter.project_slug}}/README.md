@@ -15,8 +15,8 @@
 
 ### Prerequisites
 
-- Python 3.12+
-- Poetry
+- Python 3.14+
+- uv
 
 ### Installation
 
@@ -27,16 +27,16 @@
     ```
 2.  Install dependencies:
     ```sh
-    poetry install
+    uv sync --all-extras --dev
     ```
 
 ### Usage
 
 -   Run the linter:
     ```sh
-    poetry run pre-commit run --all-files
+    uv run pre-commit run --all-files
     ```
 -   Run the tests:
     ```sh
-    poetry run pytest
+    uv run pytest
     ```
